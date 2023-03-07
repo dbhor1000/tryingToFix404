@@ -3,21 +3,22 @@ package controllers;
 import model.Ingredient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import services.IngredientService;
 import services.IngredientServiceImpl;
 
 @RestController
-@RequestMapping("/ingredient")
+@RequestMapping("/ingredient/")
 public class IngredientController {
 
-    private IngredientServiceImpl ingredientService;
+    private IngredientService ingredientService;
 
-    public IngredientController(IngredientServiceImpl ingredientService){
+    public IngredientController(IngredientService ingredientService){
 
         this.ingredientService = ingredientService;
 
     }
 
-    @PostMapping
+    @PostMapping("/addIngredient/")
     public ResponseEntity<Ingredient> addIngredient(@RequestBody Ingredient ingredient) {
 
         Ingredient addedIngredient = ingredientService.addIngredient(ingredient);
@@ -26,7 +27,7 @@ public class IngredientController {
     }
 
 
-    @GetMapping("/{ingredientNumber}")
+    @GetMapping("/{ingredientNumber}/")
     public ResponseEntity<Ingredient> getIngredient(@PathVariable long ingredientNumber) {
 
         Ingredient ingredient = ingredientService.getIngredient(ingredientNumber);
@@ -36,6 +37,29 @@ public class IngredientController {
         }
 
         return ResponseEntity.ok(ingredient);
+    }
+
+    @PutMapping("/edit/{ingredientNumber}/")
+    public ResponseEntity<Ingredient> editIngredient(@PathVariable long ingredientNumber, @RequestBody Ingredient ingredient) {
+
+        Ingredient editedIngredient = ingredientService.editIngredient(ingredientNumber, ingredient);
+
+        if (ingredient == null) {
+
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(ingredient);
+    }
+
+    @DeleteMapping("/delete/{ingredientNumber}/")
+    public ResponseEntity<Void> deleteIngredient(@PathVariable long ingredientNumber) {
+
+        if (ingredientService.deleteIngredient(ingredientNumber)) {
+            return ResponseEntity.ok().build();
+        }
+
+        return ResponseEntity.notFound().build();
     }
 
 }

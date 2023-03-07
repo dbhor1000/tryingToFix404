@@ -7,13 +7,12 @@ import services.RecipeService;
 import services.RecipeServiceImpl;
 
 @RestController
-@RequestMapping("/recipe")
-
+@RequestMapping("/recipe/")
 public class RecipeController {
 
-    private RecipeServiceImpl recipeService;
+    private RecipeService recipeService;
 
-    public RecipeController(RecipeServiceImpl recipeService) {
+    public RecipeController(RecipeService recipeService) {
         this.recipeService = recipeService;
     }
 
@@ -25,7 +24,7 @@ public class RecipeController {
 
     }
 
-    @PostMapping("/{recipeNumber}")
+    @PostMapping("/{recipeNumber}/")
     public ResponseEntity<Recipe> getRecipe(@PathVariable long recipeNumber){
 
         Recipe recipe = recipeService.getRecipe(recipeNumber);

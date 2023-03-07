@@ -26,7 +26,33 @@ public class IngredientServiceImpl implements IngredientService {
 
     }
 
+    @Override
+    public Ingredient editIngredient(long ingredientNumber, Ingredient ingredient) {
+        for(int i = 0; i < ingredientsList.size(); i++) {
 
+            if (ingredientsList.containsKey(ingredientNumber)) {
+
+                ingredientsList.put(ingredientNumber, ingredient);
+                return ingredient;
+            }
+        }
+
+        return null;
+        }
+
+    @Override
+    public boolean deleteIngredient(long ingredientNumber) {
+
+        for (int i = 0; i < ingredientsList.size(); i++) {
+
+            if (ingredientsList.containsKey(ingredientNumber)) {
+
+                ingredientsList.remove(ingredientNumber);
+                return true;
+            }
+        }
+        return false;
+    }
 
 
 }

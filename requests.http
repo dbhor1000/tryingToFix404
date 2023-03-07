@@ -1,0 +1,12 @@
+POST localhost:8080/ingredient/addIngredient
+Content-Type: application/json
+
+{
+  "name": "Творог",
+  "amountNumber": 350,
+  "measureUnit": "г."
+}
+
+###
+
+GET localhost:8080/check/
